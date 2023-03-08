@@ -4,6 +4,7 @@ import TaskCreate from "./components/TaskCreate";
 import TaskList from "./components/TaskList";
 
 function App() {
+
   const [tasks, setTasks] = useState([]);
   const createTask = (title, description) => {
     const createdTasks = [
@@ -18,11 +19,20 @@ function App() {
     setTasks(createdTasks);
   };
 
+  const deleteTaskById = (id) => {
+    const afterDeletingTask = tasks.filter((task) => {
+      return task.id !== id;
+    })
+    setTasks(afterDeletingTask);
+  }
+
+  
+
   return (
     <div className="App">
       <TaskCreate onCreate={createTask} />
       <h1>Task List</h1>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} onDelete={deleteTaskById} />
     </div>
   );
 }
