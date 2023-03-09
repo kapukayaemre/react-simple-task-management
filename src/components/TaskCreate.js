@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import TasksContext from "../context/task";
 
-function TaskCreate({ onCreate, task, taskFormUpdate, onUpdate }) {
+function TaskCreate({ task, taskFormUpdate, onUpdate }) {
+  const { createTask } = useContext(TasksContext);
   const [title, setTitle] = useState(task ? task.title : "");
   const [description, setDescription] = useState(task ? task.description : "");
 
@@ -15,8 +17,10 @@ function TaskCreate({ onCreate, task, taskFormUpdate, onUpdate }) {
   const handleSubmit = (event) => {
     if (taskFormUpdate) {
       onUpdate(task.id, title, description);
+      // editTaskById(task.id, title, description);
     } else {
-      onCreate(title, description);
+      // onCreate(title, description);
+      createTask(title, description);
     }
     setTitle("");
     setDescription("");
